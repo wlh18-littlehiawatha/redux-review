@@ -44,6 +44,9 @@ class MovieForm extends Component {
             name="westenscale"
             placeholder="Westenscale Rating"
             onChange={this.handleChange}
+            type="number"
+            max={10}
+            min={0}
           />
           <button type="submit" style={styles.formButton}>
             NEXT

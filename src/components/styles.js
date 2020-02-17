@@ -33,6 +33,7 @@ export default {
   formButton: {
     padding: '15px',
     fontSize: '1.5rem',
+    margin: '10px',
   },
   main: {
     width: '100vw',
@@ -45,5 +46,8 @@ export default {
     fontSize: '2rem',
     display: 'flex',
     justifyContent: 'space-evenly',
+  },
+  confirmText: {
+    fontSize: '1.5rem',
   },
 }

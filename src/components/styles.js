@@ -15,6 +15,8 @@ export default {
     color: 'white',
     ...centerAll,
     justifyContent: 'flex-start',
+    backgroundPosition: 'fixed',
+    overflow: 'auto',
   },
   containerHeading: {
     fontSize: '3rem',

@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { setMovieInfo } from '../ducks/moviesReducer'
 import styles from './styles'
 
 class MovieForm extends Component {
@@ -19,6 +21,10 @@ class MovieForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
+    const { title, poster, westenscale } = this.state
+
+    this.props.setMovieInfo(title, poster, westenscale)
+
     this.props.history.push('/confirm')
   }
 
@@ -56,4 +62,8 @@ class MovieForm extends Component {
     )
   }
 }
-export default MovieForm
+
+export default connect(
+  null,
+  { setMovieInfo }
+)(MovieForm)

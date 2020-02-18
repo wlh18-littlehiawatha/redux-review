@@ -165,9 +165,189 @@ Once we can get our form to properly update the values in our redux state, we ne
 3. Outside of your component create a function called `mapStateToProps` which accepts a single argument, our redux state. You can call this whatever you want.
 4. Destructure `title`, `poster`, and `rating` from our redux state and return an object containing those three values from our `mapStateToProps` function. When provided to the first invocation of `connect` this will take those values from our redux state and put them on the props of our `MovieConfirm` component.
 5. Pass `mapStateToProps` to the first invocation of `connect` and console log `props` in our `MovieConfirm` component to test that these props are being applied properly.
-6. The `MovieConfirm` component currently has placehoders of TITLE, RATING, and URL. Change those strings to references to our values on props to make them display properly.
+6. The `MovieConfirm` component currently has placeholder strings of TITLE, RATING, and URL. Change those strings to references to our values on props to make them display correctly.
 
 <details>
 <summary>MovieConfirm.js solution</summary>
 
+```js
+import React from 'react'
+import { connect } from 'react-redux'
+import { updateMovieList } from '../ducks/moviesReducer'
+import styles from './styles'
+
+const MovieConfirm = props => {
+  const { title, poster, rating } = props
+  const confirmMovie = () => {
+    props.history.push('/list')
+  }
+
+  console.log(props)
+
+  return (
+    <div style={styles.container}>
+      <p style={styles.containerHeading}>CONFIRM YOUR DETAILS</p>
+      <p style={styles.confirmText}>{`${title} - ${rating}`}</p>
+      <img src={poster} alt="Movie Poster" />
+      <div>
+        <button
+          onClick={() => props.history.push('/')}
+          style={styles.formButton}
+        >
+          BACK
+        </button>
+        <button onClick={confirmMovie} style={styles.formButton}>
+          CONFIRM
+        </button>
+      </div>
+    </div>
+  )
+}
+
+const mapStateToProps = state => {
+  const { title, poster, rating } = state
+
+  return { title, poster, rating }
+}
+
+export default connect(mapStateToProps)(MovieConfirm)
+```
+
 </details>
+
+### Step 5
+
+In this step we will finish the functionality of the app. We will allow our `MovieConfirm` component to update the `movies` array on our redux state, and setup our `MovieList` component to display this list. This will require us to add another action constant, action handler, and case to our reducer.
+
+1. First we will edit our `moviesReducer` file.
+   1. We need to add another action constant, `UPDATE_MOVIE_LIST`
+   2. We need to create another action creator called `updateMovieList`. This will take in a new movie object (which will contain title, poster, and rating properties). It should return an object with a type property which should be equal to our `UPDATE_MOVIE_LIST` constant, and an payload property which should be equal to our new movie object. Make sure to export this function.
+   3. Add a case to your reducer function of `UPDATE_MOVIE_LIST`. This case should return our current state object with the `movies` property being updated to a new array to include our new movie object which comes in on the `action.payload`.
+2. Once that is done we can update our `MovieConfirm` component to be able to take this action.
+   1. Import `updateMovieList` into `MovieConfirm`. Add an object containing this function as the second argument of the first invocation of `connect`
+   2. Modify the `confirmMovie` function to run this function, passing in an object containing title, poster, and rating properties based on the current values in our redux state.
+3. Finally, we need to connect our `MovieList` component to have access to our redux state and map over the `movies` array.
+   1. Import `connect` into this component. Use the same syntax as above to connect the component to our redux state
+   2. Outside of the component, create a function called `mapStateToProps` which takes in a single parameter, our redux state. Destructure the `movies` property from our redux state and return an object containing this property from our `mapStateToProps` function. This will apply the `movies` array to the props of `MovieList`
+      3.Modify the .map at the top of this component. Instead of mapping over an empty array, it should map over `props.movies`. Once you fix this, the list should display properly.
+
+<detail>
+<summary>MovieConfirm.js solution</summary>
+
+```js
+import React from 'react'
+import { connect } from 'react-redux'
+import { updateMovieList } from '../ducks/moviesReducer'
+import styles from './styles'
+
+const MovieConfirm = props => {
+  const { title, poster, rating } = props
+  const confirmMovie = () => {
+    props.updateMovieList({ title, poster, rating })
+    props.history.push('/list')
+  }
+
+  //return shoudl remain unchanged
+}
+
+const mapStateToProps = state => {
+  const { title, poster, rating } = state
+
+  return { title, poster, rating }
+}
+
+export default connect(
+  mapStateToProps,
+  { updateMovieList }
+)(MovieConfirm)
+```
+
+</detail>
+
+<detail>
+<summary>moviesReducer.js solution</summary>
+
+```js
+const initialState = {
+  title: '',
+  poster: '',
+  rating: null,
+  movies: [],
+}
+
+const SET_MOVIE_INFO = 'SET_MOVIE_INFO'
+const UPDATE_MOVIE_LIST = 'UPDATE_MOVIE_LIST'
+
+export const setMovieInfo = (title, poster, rating) => {
+  return {
+    type: SET_MOVIE_INFO,
+    payload: { title, poster, rating },
+  }
+}
+
+export const updateMovieList = newMovie => {
+  return {
+    type: UPDATE_MOVIE_LIST,
+    payload: newMovie,
+  }
+}
+
+function moviesReducer(state = initialState, action) {
+  switch (action.type) {
+    case SET_MOVIE_INFO:
+      return { ...state, ...action.payload }
+    case UPDATE_MOVIE_LIST:
+      return {
+        ...state,
+        title: '',
+        poster: '',
+        rating: null,
+        movies: [...state.movies, action.payload],
+      }
+    default:
+      return state
+  }
+}
+
+export default moviesReducer
+```
+
+</detail>
+
+<detail>
+<summary>MovieList.js solution</summary>
+
+```js
+import React from 'react'
+import { connect } from 'react-redux'
+import styles from './styles'
+
+const MovieList = props => {
+  const movieList = props.movies.map(element => {
+    return (
+      <div style={styles.movieListItem}>
+        <img style={styles.poster} src={element.poster} alt={element.title} />
+        <div style={styles.listItemInfo}>
+          <p style={styles.listItemText}>{element.title}</p>
+          <p style={styles.listItemText}>{element.rating}/10</p>
+        </div>
+      </div>
+    )
+  })
+
+  return (
+    <div style={styles.container}>
+      <p style={styles.containerHeading}>A LIST OF MOVIES</p>
+      {movieList}
+    </div>
+  )
+}
+
+const mapStateToProps = state => {
+  const { movies } = state
+  return { movies }
+}
+export default connect(mapStateToProps)(MovieList)
+```
+
+</detail>

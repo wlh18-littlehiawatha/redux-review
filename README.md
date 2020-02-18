@@ -72,4 +72,47 @@ export default moviesReducer
 Our next step will be to set up our store and connect provide it to our application
 
 1. Create a file inside your `src` folder called `store.js` this will hold our redux store. This will also make it possible for us to use the redux devtools. If you do not have them installed you can find them [here](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en). They will make your life infinitely easier when dealing with redux because you will be able to dynamically check your redux state values.
-2. Import `createStore` from `redux`, `moviesReducer` from our `moviesReducer.js` file, and `redux-devtools-enhancer` from `redux-devtools-extension`
+2. Import `createStore` from `redux`, `moviesReducer` from our `moviesReducer.js` file, and `devToolsEnhancer` from `redux-devtools-extension`. Only our `moviesReducer` is the default export so don't forget to put curly braces around the other two imports.
+3. Create a variable called `store` and set it equal to `createStore` invoked. Pass it our movies reducer as its first argument, its second argument should be `devToolsEnhancer` invoked. This will connect our app to the redux devtools.
+4. Inside of your `index.js` file, import `Provider` from `react-redux` and `store` from our `store.js` file. Wrap your app component in our Provider and pass it `store` as a prop called store. This will make our store available to our app.
+
+<details>
+<summary>store.js solution</summary>
+
+```js
+import { createStore } from 'redux'
+import moviesReducer from './ducks/moviesReducer'
+import { devToolsEnhancer } from 'redux-devtools-extension'
+
+export default createStore(moviesReducer, devToolsEnhancer())
+```
+
+</details>
+
+<details>
+<summary>index.js solution</summary>
+
+```js
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import App from './App'
+import { HashRouter as Router } from 'react-router-dom'
+import {Provider} from 'react-redux
+import store from './store'
+
+ReactDOM.render(
+  <Router>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </Router>,
+  document.getElementById('root')
+)
+```
+
+</details>
+
+### Step 3
+
+Our next step will be to connect our `MovieForm` component to our reducer and make

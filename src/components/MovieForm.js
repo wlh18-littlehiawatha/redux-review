@@ -9,7 +9,7 @@ class MovieForm extends Component {
     this.state = {
       title: '',
       poster: '',
-      westenscale: null,
+      rating: null,
     }
   }
 
@@ -21,9 +21,9 @@ class MovieForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    const { title, poster, westenscale } = this.state
+    const { title, poster, rating } = this.state
 
-    this.props.setMovieInfo(title, poster, westenscale)
+    this.props.setMovieInfo(title, poster, rating)
 
     this.props.history.push('/confirm')
   }
@@ -47,8 +47,8 @@ class MovieForm extends Component {
           />
           <input
             style={styles.formInput}
-            name="westenscale"
-            placeholder="Westenscale Rating"
+            name="rating"
+            placeholder="rating Rating"
             onChange={this.handleChange}
             type="number"
             max={10}

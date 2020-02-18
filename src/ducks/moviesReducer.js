@@ -1,17 +1,17 @@
 const initialState = {
   title: '',
   poster: '',
-  westenscale: null,
+  rating: null,
   movies: [],
 }
 
 const SET_MOVIE_INFO = 'SET_MOVIE_INFO'
 const UPDATE_MOVIE_LIST = 'UPDATE_MOVIE_LIST'
 
-export const setMovieInfo = (title, poster, westenscale) => {
+export const setMovieInfo = (title, poster, rating) => {
   return {
     type: SET_MOVIE_INFO,
-    payload: { title, poster, westenscale },
+    payload: { title, poster, rating },
   }
 }
 
@@ -31,7 +31,7 @@ function moviesReducer(state = initialState, action) {
         ...state,
         title: '',
         poster: '',
-        westenscale: null,
+        rating: null,
         movies: [...state.movies, action.payload],
       }
     default:

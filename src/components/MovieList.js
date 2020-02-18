@@ -9,7 +9,7 @@ const MovieList = props => {
         <img style={styles.poster} src={element.poster} alt={element.title} />
         <div style={styles.listItemInfo}>
           <p style={styles.listItemText}>{element.title}</p>
-          <p style={styles.listItemText}>{element.westenscale}/10</p>
+          <p style={styles.listItemText}>{element.rating}/10</p>
         </div>
       </div>
     )

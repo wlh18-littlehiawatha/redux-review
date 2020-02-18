@@ -4,9 +4,9 @@ import { updateMovieList } from '../ducks/moviesReducer'
 import styles from './styles'
 
 const MovieConfirm = props => {
-  const { title, poster, westenscale } = props
+  const { title, poster, rating } = props
   const confirmMovie = () => {
-    props.updateMovieList({ title, poster, westenscale })
+    props.updateMovieList({ title, poster, rating })
     props.history.push('/list')
   }
 
@@ -15,7 +15,7 @@ const MovieConfirm = props => {
   return (
     <div style={styles.container}>
       <p style={styles.containerHeading}>CONFIRM YOUR DETAILS</p>
-      <p style={styles.confirmText}>{`${title} - ${westenscale}`}</p>
+      <p style={styles.confirmText}>{`${title} - ${rating}`}</p>
       <img src={poster} alt="Movie Poster" />
       <div>
         <button
@@ -33,9 +33,9 @@ const MovieConfirm = props => {
 }
 
 const mapStateToProps = state => {
-  const { title, poster, westenscale } = state
+  const { title, poster, rating } = state
 
-  return { title, poster, westenscale }
+  return { title, poster, rating }
 }
 
 export default connect(

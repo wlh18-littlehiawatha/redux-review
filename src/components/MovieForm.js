@@ -7,7 +7,7 @@ class MovieForm extends Component {
     this.state = {
       title: '',
       poster: '',
-      westenscale: null,
+      rating: null,
     }
   }
 
@@ -41,8 +41,8 @@ class MovieForm extends Component {
           />
           <input
             style={styles.formInput}
-            name="westenscale"
-            placeholder="Westenscale Rating"
+            name="rating"
+            placeholder="Rating"
             onChange={this.handleChange}
             type="number"
             max={10}

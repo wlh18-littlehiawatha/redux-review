@@ -115,4 +115,16 @@ ReactDOM.render(
 
 ### Step 3
 
-Our next step will be to connect our `MovieForm` component to our reducer and make
+Our next step will be to connect our `MovieForm` component to our reducer and make it update the values on our redux state.
+
+1. In our `MovieForm` component, import `connect` from `react-redux` and `setMovieInfo` from our `moviesReducer.js` file.
+2. Wrap your export of `MovieForm` in the second invocation of connect (HINT: `connect` will be invoked twice, once to recieve `mapStateToProps` and a second time to recieve any action creators that we want to pass in).
+3. Because we don't need to display any redux state values in this component, just set them, instead of passing `mapStateToProps` to the first invocation of `connect`, we will pass `null` and an object containing our `setMovieInfo` function as the second argument.
+4. Finally, we want to modify our `handleSubmit` method to set those values on our redux state. Inside of this method, invoke the props version of `setMovieInfo`, passing it title, poster, and rating from our local state.
+
+> We can use our redux devtools to check that these values are setting properly. Open up your developer tools and find the redux devtools. They will show the current value of your redux state as well as any changes that happen.
+
+<details>
+<summary>MovieForm.js solution</summary>
+
+</details>

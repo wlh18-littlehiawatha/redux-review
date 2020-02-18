@@ -9,7 +9,7 @@ const MovieConfirm = props => {
   return (
     <div style={styles.container}>
       <p style={styles.containerHeading}>CONFIRM YOUR DETAILS</p>
-      <p style={styles.confirmText}>{`TITLE - WESTENSCALE`}</p>
+      <p style={styles.confirmText}>{`TITLE - RATING`}</p>
       <img src={`URL`} alt="Movie Poster" />
       <div>
         <button

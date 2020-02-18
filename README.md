@@ -17,7 +17,7 @@ Many people struggle to implement the redux pattern their first few times. The b
 
 Our first step will be to set up our reducer.
 
-1. Inside of your `src` folder, create a `redux` folder. Inside of this folder create a file called `moviesReducer.js`.
+1. Inside of your `src` folder, create a `ducks` folder. Inside of this folder create a file called `moviesReducer.js`.
 2. Let's set up our reducer, it will contain 4 parts
    1. Our initial state which will need the following properties and default values: `title: ''`, `poster: ''`, `rating: null`, `movies: []`.
    2. An action constant called `"SET_MOVIE_INFO"`
@@ -34,9 +34,42 @@ Our first step will be to set up our reducer.
       - This function needs to be our default export from this file.
 
 <details>
-  <summary>moviesReducer.js</summary>
+  <summary>moviesReducer.js solution</summary>
 
 ```js
+const initialState = {
+  title: '',
+  poster: '',
+  rating: null,
+  movies: [],
+}
+
+const SET_MOVIE_INFO = 'SET_MOVIE_INFO'
+
+export const setMovieInfo = (title, poster, rating) => {
+  return {
+    type: SET_MOVIE_INFO,
+    payload: { title, poster, rating },
+  }
+}
+
+function moviesReducer(state = initialState, action) {
+  switch (action.type) {
+    case SET_MOVIE_INFO:
+      return { ...state, ...action.payload }
+    default:
+      return state
+  }
+}
+
+export default moviesReducer
 ```
 
 </details>
+
+### Step 2
+
+Our next step will be to set up our store and connect provide it to our application
+
+1. Create a file inside your `src` folder called `store.js` this will hold our redux store. This will also make it possible for us to use the redux devtools. If you do not have them installed you can find them [here](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en). They will make your life infinitely easier when dealing with redux because you will be able to dynamically check your redux state values.
+2. Import `createStore` from `redux`, `moviesReducer` from our `moviesReducer.js` file, and `redux-devtools-enhancer` from `redux-devtools-extension`

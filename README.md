@@ -247,7 +247,7 @@ const MovieConfirm = props => {
     props.history.push('/list')
   }
 
-  //return shoudl remain unchanged
+  //return should remain unchanged
 }
 
 const mapStateToProps = state => {

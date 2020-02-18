@@ -4,6 +4,8 @@
 
 This project is intended to provide another example of an implementation of React Redux. The master branch contains a project ready to implement React Redux. For a working version of the project, checkout to the `finished` branch.
 
+This project is a simple app to make a list of movies while showing their posters and our own rating from 0 - 10. The first step is to input the information about the movie, then confirm the information, and then view our list of movies.
+
 ## Instructions
 
 Many people struggle to implement the redux pattern their first few times. The best way to become comfortable with it will be to repeat it several times. This repo will provide instructions walking through the process. For your information we have installed the following libraries from npm:

@@ -18,6 +18,8 @@ export default {
   },
   containerHeading: {
     fontSize: '3rem',
+    textDecoration: 'underline',
+    marginBottom: '15px',
   },
   form: {
     display: 'flex',
@@ -49,5 +51,27 @@ export default {
   },
   confirmText: {
     fontSize: '1.5rem',
+  },
+  movieListItem: {
+    display: 'flex',
+    height: '25vh',
+    width: '25%',
+    justifyContent: 'space-between',
+    background: 'rgba(255,255,255, 0.3)',
+    padding: '10px 25px',
+  },
+  poster: {
+    height: '100%',
+    width: 'auto',
+  },
+  listItemInfo: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+  },
+  listItemText: {
+    fontSize: '2rem',
+    textAlight: 'left',
   },
 }

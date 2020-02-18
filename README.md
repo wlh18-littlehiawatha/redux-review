@@ -231,7 +231,7 @@ In this step we will finish the functionality of the app. We will allow our `Mov
    2. Outside of the component, create a function called `mapStateToProps` which takes in a single parameter, our redux state. Destructure the `movies` property from our redux state and return an object containing this property from our `mapStateToProps` function. This will apply the `movies` array to the props of `MovieList`
       3.Modify the .map at the top of this component. Instead of mapping over an empty array, it should map over `props.movies`. Once you fix this, the list should display properly.
 
-<detail>
+<details>
 <summary>MovieConfirm.js solution</summary>
 
 ```js
@@ -262,9 +262,9 @@ export default connect(
 )(MovieConfirm)
 ```
 
-</detail>
+</details>
 
-<detail>
+<details>
 <summary>moviesReducer.js solution</summary>
 
 ```js
@@ -312,9 +312,9 @@ function moviesReducer(state = initialState, action) {
 export default moviesReducer
 ```
 
-</detail>
+</details>
 
-<detail>
+<details>
 <summary>MovieList.js solution</summary>
 
 ```js
@@ -350,4 +350,4 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps)(MovieList)
 ```
 
-</detail>
+</details>

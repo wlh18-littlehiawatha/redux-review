@@ -127,4 +127,47 @@ Our next step will be to connect our `MovieForm` component to our reducer and ma
 <details>
 <summary>MovieForm.js solution</summary>
 
+```js
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { setMovieInfo } from '../ducks/moviesReducer'
+import styles from './styles'
+
+class MovieForm extends Component {
+  //Constructor and handle change methods.  These do not need to be changed.
+
+  handleSubmit = e => {
+    e.preventDefault()
+    const { title, poster, rating } = this.state
+
+    this.props.setMovieInfo(title, poster, rating)
+
+    this.props.history.push('/confirm')
+  }
+
+  //Render method this does not need to be changed.
+}
+
+export default connect(
+  null,
+  { setMovieInfo }
+)(MovieForm)
+```
+
+</details>
+
+### Step 4
+
+Once we can get our form to properly update the values in our redux state, we need to edit `MovieConfirm` to display them.
+
+1. Import `connect` into your `MovieConfirm` component from `'react-redux'`.
+2. Wrap your export of `MovieConfirm` in the second invocation of connect.
+3. Outside of your component create a function called `mapStateToProps` which accepts a single argument, our redux state. You can call this whatever you want.
+4. Destructure `title`, `poster`, and `rating` from our redux state and return an object containing those three values from our `mapStateToProps` function. When provided to the first invocation of `connect` this will take those values from our redux state and put them on the props of our `MovieConfirm` component.
+5. Pass `mapStateToProps` to the first invocation of `connect` and console log `props` in our `MovieConfirm` component to test that these props are being applied properly.
+6. The `MovieConfirm` component currently has placehoders of TITLE, RATING, and URL. Change those strings to references to our values on props to make them display properly.
+
+<details>
+<summary>MovieConfirm.js solution</summary>
+
 </details>
